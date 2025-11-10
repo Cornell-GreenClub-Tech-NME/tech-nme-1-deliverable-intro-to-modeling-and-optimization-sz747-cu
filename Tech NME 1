@@ -1,2 +1,4 @@
-0.12x+0.25y<=15
-
+0.12x+0.25y<=15 #budget constraint
+x=kg of food waste sent for compost
+y=kg of food waste donated
+x+y<=80 #total food waste is 80kg a day
