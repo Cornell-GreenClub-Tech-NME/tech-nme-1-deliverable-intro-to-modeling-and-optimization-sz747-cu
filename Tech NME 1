@@ -1,4 +1,27 @@
-0.12x+0.25y<=15 #budget constraint
-x=kg of food waste sent for compost
-y=kg of food waste donated
-x+y<=80 #total food waste is 80kg a day
+# 0.12x+0.25y<=15 budget constraint
+# x=kg of food waste sent for compost
+# y=kg of food waste donated
+# x+y<=80 total food waste is 80kg a day
+# 2x+5y expression to optimize for total impact
+
+objective = [-2, -5]
+
+constraint_coeffs = [
+  [0.12, 0.25] #budget coefficients
+  [1, 1] #mass coefficients
+]
+
+constraint_limits = [15, 80]
+
+x_bounds = (0, None)
+y_bounds = (0, None)
+
+solution = linprog(objective, A_ub= constraint_coeffs, b_ub= constraint_limits, bounds=[x_bounds, y_bounds], method='highs')
+
+if solution.success:
+    print("Optimal solution found:")
+    print(f"kg of food waste to compost: {solution.x[0]:.2f}")
+    print(f"kg of food waste to donate: {solution.x[1]:.2f}")
+    print(f"Total impact: {-solution.fun:.2f}")
+else:
+    print("No solution found.") #when .success == False
